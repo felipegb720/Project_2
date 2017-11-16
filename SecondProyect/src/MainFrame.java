@@ -17,7 +17,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     
       private File txt_File;
-      private Scanner File;
+      private Scanner Scan;
     /**
      * Creates new form MainFrame
      */
@@ -113,8 +113,22 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here: 
-        jLabel2.setText("");
+       OpenFile();   
+       ReadFile();
+       CloseFile();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    
+    public void OpenFile(){
+         
+       jLabel2.setText("");
          try{    
              
              final JFileChooser Chooser = new JFileChooser();        // I create a new filechooser object type wich allows me to open dialog
@@ -126,30 +140,42 @@ public class MainFrame extends javax.swing.JFrame {
              jLabel2.setText(FilePath);     // takes the canonical and absolute path and shows it to user.
              
              // converti el file 
-             Scanner Scan = new Scanner (new FileReader(txt_File)); 
+             Scan = new Scanner (new FileReader(txt_File)); 
             
              jButton1.show(true);
              jTextField1.show(true);
-         }
-         
-         catch( Exception e){       
-             
+         }     
+         catch( Exception e){          
              System.out.println("THERE'S NO FILE FOUND HERE DUMMY");
          }
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-       
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+    }
+    
+    public void ReadFile(){
+        while(Scan.hasNext()) { //reads untiul there is no more elements in my text file
+    
+            String Structure = Scan.next();
+            
+           switch (Structure){
+               case " stack ":
+                   
+                   while(Scan.hasNext()){
+                       
+                   }
+                   
+                   break;
+           }
+   
+            }
+    } // end of ReadFile()
+    
+     public void CloseFile(){
+         Scan.close();
+     }
+     
+     public void CompareToIdentify(){
+         
+     }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
