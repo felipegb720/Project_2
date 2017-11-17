@@ -3,11 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import static java.awt.PageAttributes.MediaType.E;
 import java.io.BufferedReader.*;
 import java.util.AbstractCollection.*;
 import java.io.*;
 import java.io.FileReader.*;
+import static java.lang.Math.E;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.Stack;
 import javax.swing.JFileChooser;
 /**
  *
@@ -25,7 +30,8 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);   // this centers my window to the center of the screen
         jButton1.show(false);
-        jTextField1.show(false);
+        jTextArea1.show(false);
+        jLabel2.show(false);
      
     }
 
@@ -38,14 +44,19 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+
+        jScrollPane1.setViewportView(jTextPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +72,10 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
         jMenu1.setText("File");
 
@@ -84,15 +99,15 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,10 +116,10 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(16, 16, 16)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -143,39 +158,52 @@ public class MainFrame extends javax.swing.JFrame {
              Scan = new Scanner (new FileReader(txt_File)); 
             
              jButton1.show(true);
-             jTextField1.show(true);
+             jTextArea1.show(true);
          }     
          catch( Exception e){          
              System.out.println("THERE'S NO FILE FOUND HERE DUMMY");
          }
     }
     
-    public void ReadFile(){
-        while(Scan.hasNext()) { //reads untiul there is no more elements in my text file
+    public void ReadFile() {
+       
+        while(Scan.hasNext()) {     //reads untiul there is no more elements in my text file
     
-            String Structure = Scan.next();
+            String Structure = Scan.next().toUpperCase();     // analiza la primera cadena que es el tipo de structura; upper just for safe ;)
             
            switch (Structure){
-               case " stack ":
-                   
+               
+               case "STACK":
+                  
+                   Stack Stack01 = new Stack();     // creates the case structure [Stack] in this case                 
                    while(Scan.hasNext()){
                        
+                       Stack01.add(Scan.next());        
+                   }                   
+                   for (int i = 0; i < Stack01.size(); i++) {
+                       jTextArea1.append("  "+(String)Stack01.elementAt(i));
                    }
-                   
                    break;
-           }
-   
-            }
+
+               case "QUEUE":
+    
+                       Queue<String> Queue01 = new LinkedList<String>();
+                       
+                       while(Scan.hasNext()){
+                           Queue01.add(Scan.next());            
+                       }                      
+                       while(Queue01.isEmpty()){
+                           jTextArea1.setText((String)Queue01.element());
+                   }    
+                       break;    
+           }            
+        } // end of main while 
     } // end of ReadFile()
     
      public void CloseFile(){
          Scan.close();
      }
-     
-     public void CompareToIdentify(){
-         
-     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -216,6 +244,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }
