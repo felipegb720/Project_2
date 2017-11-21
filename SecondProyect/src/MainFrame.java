@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Classes.ArrayList;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -191,6 +192,17 @@ public class MainFrame extends javax.swing.JFrame {
                      Queue01.add(Scan.next());
   
                 } while (Scan.hasNextLine());            
+            }
+            
+            if (Scan.findInLine("arraylist") != null) {
+                Scan.nextLine();
+                 
+                ArrayList ArrayList01 = new ArrayList();
+                 
+                 do {
+                     ArrayList01.add(Scan.next());
+  
+                } while (Scan.hasNextLine());           
             }
         }
 
