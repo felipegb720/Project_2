@@ -18,6 +18,11 @@ public class MainFrame extends javax.swing.JFrame {
     
       private File txt_File;
       private Scanner Scan;
+      String PatternStack = "STACK";
+      String PatternQueue = "QUEUE";
+      
+              
+      
     /**
      * Creates new form MainFrame
      */
@@ -159,44 +164,42 @@ public class MainFrame extends javax.swing.JFrame {
              jTextArea1.show(true);
          }     
          catch(IOException e){          
-             System.out.println("THERE'S NO FILE FOUND HERE DUMMY");
+                e.printStackTrace();
          }
     }
     
     public void ReadFile() {
-       
-        while(Scan.hasNext()) {     //reads untiul there is no more elements in my text file
-    
-           String Structure = Scan.next().toUpperCase();     // analiza la primera cadena que es el tipo de structura; upper just for safe ;)
-            
-           switch (Structure){
-               
-               case "STACK":
-                  
-                   Stack Stack01 = new Stack();     // creates the case structure [Stack] in this case                 
-                   while(Scan.hasNext()){
-                       
-                       Stack01.add(Scan.next());        
-                   }                   
-                   for (int i = 0; i < Stack01.size(); i++) {
-                       jTextArea1.append("      "+(String)Stack01.elementAt(i));
-                   }
-                   break;
 
-               case "QUEUE":
-    
-                       Queue<String> Queue01 = new LinkedList<String>();
-                       
-                       while(Scan.hasNext()){
-                           Queue01.add(Scan.next());            
-                       }                      
-                       while(Queue01.isEmpty()){
-                           jTextArea1.append((String)Queue01.element());
-                   }    
-                       break;    
-           }            
-        } // end of main while 
+        while( Scan.hasNext() ) {
+            
+            if (Scan.findInLine("stack") != null) {
+               
+                Scan.nextLine();
+                 Stack Stack01 = new Stack();                              
+                 do {
+                     
+                     Stack01.add(Scan.next());      
+                     
+                } while (Scan.hasNextLine());   
+            }
+            
+            if (Scan.findInLine("queue") != null) {
+                
+                Scan.nextLine();
+                 Queue<String> Queue01 = new LinkedList<String>();
+                 do {
+                     Queue01.add(Scan.next());
+  
+                } while (Scan.hasNextLine());            
+            }
+        }
+
     } // end of ReadFile()
+    
+    
+    public void PrintStructures(){
+        
+    }
     
      public void CloseFile(){
          Scan.close();
