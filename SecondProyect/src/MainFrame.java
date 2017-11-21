@@ -4,11 +4,16 @@
  * and open the template in the editor.
  */
 import Classes.ArrayList;
+import Classes.Generic_Stack;
+import Classes.Generic_Queue;
+
 import java.io.*;
 import java.util.LinkedList;
+
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
+
 import javax.swing.JFileChooser;
 /**
  *
@@ -176,10 +181,10 @@ public class MainFrame extends javax.swing.JFrame {
             if (Scan.findInLine("stack") != null) {
                
                 Scan.nextLine();
-                 Stack Stack01 = new Stack();                              
+                 Generic_Stack Stack01 = new Generic_Stack();    //generates new stack generic                          
                  do {
                      
-                     Stack01.add(Scan.next());      
+                     Stack01.Push(Scan.next());      
                      
                 } while (Scan.hasNextLine());   
             }
@@ -187,9 +192,9 @@ public class MainFrame extends javax.swing.JFrame {
             if (Scan.findInLine("queue") != null) {
                 
                 Scan.nextLine();
-                 Queue<String> Queue01 = new LinkedList<String>();
+                 Generic_Queue Queue01 = new Generic_Queue();  //generates new queue generic                          
                  do {
-                     Queue01.add(Scan.next());
+                     Queue01.enqueue(Scan.next());
   
                 } while (Scan.hasNextLine());            
             }
